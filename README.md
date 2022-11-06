@@ -2,9 +2,44 @@
 ![CI](https://github.com/input-output-hk/plutus-starter/actions/workflows/test.yml/badge.svg?branch=main)
 
 
-This project gives a simple starter project for using the Plutus Platform.
+This project is the starting point for a Cardano NFT project that will use the given NFT as a means of authenticating with a Web3 frontend.
 
 ## Setting up
+
+```
+$ nix-shell
+```
+
+1. Build the PAB executable:
+
+```
+
+cabal build nftauth
+
+```
+
+2. Run the PAB binary:
+
+```
+
+cabal exec -- nftauth
+
+````
+
+3. Check what contracts are present:
+
+```
+
+curl -s http://localhost:9080/api/contract/definitions | jq
+
+```
+
+This will then start up the server on port 9080.
+
+You should receive a list of contracts and the endpoints that can be called on them, and the arguments required for those endpoints.
+
+We're interested in the `NFTContract` one.
+
 
 ### VSCode devcontainer
 

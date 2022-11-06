@@ -10,6 +10,10 @@ This project is the starting point for a Cardano NFT project that will use the g
 $ nix-shell
 ```
 
+```
+cabal update
+```
+
 1. Build the PAB executable:
 
 ```

@@ -41,8 +41,7 @@ common lang
 library
     import: lang
     exposed-modules:
-      MyModule
-      Plutus.Contracts.Game
+      Plutus.Contracts.NFTAuth
     build-depends:
       base >= 4.9 && < 5,
       aeson -any,

@@ -9,7 +9,7 @@
 {-# LANGUAGE TypeFamilies       #-}
 {-# LANGUAGE TypeOperators      #-}
 
-module Main(main, writeCostingScripts) where
+module Main(main) where
 
 import           Control.Monad                       (void)
 import           Control.Monad.Freer                 (interpret)
@@ -17,7 +17,7 @@ import           Control.Monad.IO.Class              (MonadIO (..))
 import           Data.Aeson                          (FromJSON (..), ToJSON (..), genericToJSON, genericParseJSON
                                                      , defaultOptions, Options(..))
 import           Data.Default                        (def)
-import qualified Data.OpenApi                        as OpenApi
+-- import qualified Data.OpenApi                        as OpenApi
 import           GHC.Generics                        (Generic)
 import           Plutus.Contract                     (ContractError)
 import           Plutus.PAB.Effects.Contract.Builtin (Builtin, SomeBuiltin (..), BuiltinHandler(contractHandler))
@@ -26,18 +26,18 @@ import           Plutus.PAB.Simulator                (SimulatorEffectHandlers)
 import qualified Plutus.PAB.Simulator                as Simulator
 import qualified Plutus.PAB.Webserver.Server         as PAB.Server
 import           Plutus.Contracts.NFTAuth            as NFTAuth
-import           Plutus.Trace.Emulator.Extract       (writeScriptsTo, ScriptsConfig (..), Command (..))
+-- import           Plutus.Trace.Emulator.Extract       (writeScriptsTo, ScriptsConfig (..), Command (..))
 import           Prettyprinter                       (Pretty (..), viaShow)
-import           Ledger.Index                        (ValidatorMode(..))
+-- import           Ledger.Index                        (ValidatorMode(..))
 import qualified Wallet.Emulator.Wallet as Wallet
 
 main :: IO ()
 main = void $ Simulator.runSimulationWith handlers $ do
     Simulator.logString @(Builtin StarterContracts) "Starting plutus-starter PAB webserver on port 9080. Press enter to exit."
 
-    (wallet, _paymentPubKeyHash) <- Simulator.addWallet
-    Simulator.waitNSlots 1
-    liftIO $ writeFile "scripts/wallet" (show $ Wallet.getWalletId wallet)
+    -- (wallet, _paymentPubKeyHash) <- Simulator.addWallet
+    -- Simulator.waitNSlots 1
+    -- liftIO $ writeFile "scripts/wallet" (show $ Wallet.getWalletId wallet)
 
     shutdown <- PAB.Server.startServerDebug
 
@@ -60,21 +60,21 @@ main = void $ Simulator.runSimulationWith handlers $ do
 
 -- | An example of computing the script size for a particular trace.
 -- Read more: <https://plutus.readthedocs.io/en/latest/plutus/howtos/analysing-scripts.html>
-writeCostingScripts :: IO ()
-writeCostingScripts = do
-  let config = ScriptsConfig { scPath = "/tmp/plutus-costing-outputs/", scCommand = cmd }
-      cmd    = Scripts { unappliedValidators = FullyAppliedValidators }
-      -- Note: Here you can use any trace you wish.
-      trace  = correctGuessTrace
-  (totalSize, exBudget) <- writeScriptsTo config "game" trace def
-  putStrLn $ "Total size = " <> show totalSize
-  putStrLn $ "ExBudget = " <> show exBudget
+-- writeCostingScripts :: IO ()
+-- writeCostingScripts = do
+--   let config = ScriptsConfig { scPath = "/tmp/plutus-costing-outputs/", scCommand = cmd }
+--       cmd    = Scripts { unappliedValidators = FullyAppliedValidators }
+--       -- Note: Here you can use any trace you wish.
+--       trace  = correctGuessTrace
+--   (totalSize, exBudget) <- writeScriptsTo config "game" trace def
+--   putStrLn $ "Total size = " <> show totalSize
+--   putStrLn $ "ExBudget = " <> show exBudget
 
 
 data StarterContracts =
     NFTContract
     deriving (Eq, Ord, Show, Generic)
-    deriving anyclass OpenApi.ToSchema
+    -- deriving anyclass OpenApi.ToSchema
 
 -- NOTE: Because 'StarterContracts' only has one constructor, corresponding to
 -- the demo 'Game' contract, we kindly ask aeson to still encode it as if it had
@@ -102,6 +102,6 @@ instance Builtin.HasDefinitions StarterContracts where
 
 handlers :: SimulatorEffectHandlers (Builtin StarterContracts)
 handlers =
-    Simulator.mkSimulatorHandlers def
+    Simulator.mkSimulatorHandlers def def
     $ interpret (contractHandler Builtin.handleBuiltin)
 

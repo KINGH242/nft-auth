@@ -59,6 +59,7 @@ library
       plutus-script-utils -any,
       text -any,
       lens -any,
+      utf8-string -any,
     hs-source-dirs: src examples/src
 
 test-suite plutus-example-projects-test
@@ -83,7 +84,7 @@ test-suite plutus-example-projects-test
     tasty-hedgehog >=0.2.0.0
 
 
-executable plutus-starter-pab
+executable nftauth
   import: lang
   main-is: Main.hs
   hs-source-dirs: pab

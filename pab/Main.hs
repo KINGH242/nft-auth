@@ -25,7 +25,7 @@ import qualified Plutus.PAB.Effects.Contract.Builtin as Builtin
 import           Plutus.PAB.Simulator                (SimulatorEffectHandlers)
 import qualified Plutus.PAB.Simulator                as Simulator
 import qualified Plutus.PAB.Webserver.Server         as PAB.Server
-import           Plutus.Contracts.Game               as Game
+import           Plutus.Contracts.NFTAuth            as NFTAuth
 import           Plutus.Trace.Emulator.Extract       (writeScriptsTo, ScriptsConfig (..), Command (..))
 import           Prettyprinter                       (Pretty (..), viaShow)
 import           Ledger.Index                        (ValidatorMode(..))
@@ -72,7 +72,7 @@ writeCostingScripts = do
 
 
 data StarterContracts =
-    GameContract
+    NFTContract
     deriving (Eq, Ord, Show, Generic)
     deriving anyclass OpenApi.ToSchema
 
@@ -94,11 +94,11 @@ instance Pretty StarterContracts where
     pretty = viaShow
 
 instance Builtin.HasDefinitions StarterContracts where
-    getDefinitions = [GameContract]
+    getDefinitions = [NFTContract]
     getSchema =  \case
-        GameContract -> Builtin.endpointsToSchemas @Game.GameSchema
+        NFTContract -> Builtin.endpointsToSchemas @NFTAuth.NFTSchema
     getContract = \case
-        GameContract -> SomeBuiltin (Game.game @ContractError)
+        NFTContract -> SomeBuiltin (NFTAuth.nft @ContractError)
 
 handlers :: SimulatorEffectHandlers (Builtin StarterContracts)
 handlers =

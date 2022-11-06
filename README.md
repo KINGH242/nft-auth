@@ -44,6 +44,15 @@ You should receive a list of contracts and the endpoints that can be called on t
 
 We're interested in the `NFTContract` one.
 
+To run frontend 
+
+```
+cd frontend
+npm install
+npm start
+```
+
+The frontend can be used for limited interaction with PAB
 
 ### VSCode devcontainer
 

@@ -1,4 +1,4 @@
-cabal-version:      3.0
+cabal-version:      2.4
 name:               plutus-starter
 version:            0.1.0.0
 
@@ -44,21 +44,17 @@ library
       Plutus.Contracts.NFTAuth
     build-depends:
       base >= 4.9 && < 5,
-      aeson -any,
-      bytestring -any,
-      containers -any,
-      freer-extras -any,
-      playground-common -any,
-      plutus-contract -any,
-      plutus-ledger -any,
-      plutus-ledger-api -any,
-      plutus-ledger-constraints -any,
-      plutus-tx -any,
-      plutus-tx-plugin -any,
-      plutus-script-utils -any,
-      text -any,
-      lens -any,
-      utf8-string -any,
+      aeson,
+      bytestring,
+      containers,
+      freer-extras,
+      playground-common,
+      plutus-contract,
+      plutus-tx-plugin,
+      plutus-tx,
+      utf8-string,
+      text,
+      plutus-ledger
     hs-source-dirs: src examples/src
 
 test-suite plutus-example-projects-test
@@ -72,16 +68,13 @@ test-suite plutus-example-projects-test
     plutus-tx -any,
     plutus-tx-plugin,
     plutus-contract -any,
-    plutus-pab -any,
     plutus-ledger -any,
     plutus-starter -any
   build-depends:
     base >=4.9 && <5,
     tasty -any,
     tasty-hunit -any,
-    text -any,
     tasty-hedgehog >=0.2.0.0
-
 
 executable nftauth
   import: lang
@@ -99,5 +92,4 @@ executable nftauth
     freer-simple -any,
     prettyprinter -any,
     freer-extras -any,
-    plutus-ledger -any,
-    openapi3 -any,
+    plutus-ledger -any

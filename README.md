@@ -1,8 +1,10 @@
-# Plutus Platform starter project
+# NFT Auth
 ![CI](https://github.com/input-output-hk/plutus-starter/actions/workflows/test.yml/badge.svg?branch=main)
 
 
-This project is the starting point for a Cardano NFT project that will use the given NFT as a means of authenticating with a Web3 frontend.
+This project is the starting point for a Cardano NFT project that will mint and use the NFTs as a means of authenticating with a Web3 frontend. 
+
+Currently for the means of learning it only mints the NFT
 
 ## Setting up
 
